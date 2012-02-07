@@ -2,6 +2,11 @@
 
 class Portfolio_Admin_CategoryController extends Controller {
 
+    /**
+     * Displays a table of categories.
+     *
+     * Route: admin/portfolio/categories/manage
+     */
     public static function manage()
     {
         $rows = array();
@@ -49,6 +54,11 @@ class Portfolio_Admin_CategoryController extends Controller {
         );
     }
 
+    /**
+     * Displays a form for creating categories.
+     *
+     * Route: admin/portfolio/categories/create
+     */
     public static function create()
     {
         if($_POST)
@@ -100,6 +110,13 @@ class Portfolio_Admin_CategoryController extends Controller {
         );
     }
 
+    /**
+     * Displays a form for editing a category based on the given $id.
+     *
+     * Route: admin/portfolio/categories/edit/:num
+     *
+     * @param int $id The id of the category to edit
+     */
     public static function edit($id)
     {
         if(!$category = Portfolio::category()->find($id))
@@ -158,6 +175,13 @@ class Portfolio_Admin_CategoryController extends Controller {
         );
     }
 
+    /**
+     * Deletes the given category based on $id.
+     *
+     * Route: admin/portfolio/categories/delete/:num
+     *
+     * @param int $id The id of the category to delete.
+     */
     public static function delete($id)
     {
         if(Portfolio::category()->delete($id))

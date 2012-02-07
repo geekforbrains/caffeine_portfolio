@@ -2,6 +2,11 @@
 
 class Portfolio_Admin_ItemController extends Controller {
 
+    /**
+     * Displays a list of tables for each category.
+     *
+     * Route: admin/portfolio/items
+     */
     public static function manage()
     {
         $content = array(); // To be output
@@ -62,6 +67,11 @@ class Portfolio_Admin_ItemController extends Controller {
         return $content;
     }
 
+    /**
+     * Displays a form for creating a new portfolio item.
+     *
+     * Route: admin/portfolio/items/create
+     */
     public static function create()
     {
         if($_POST)
@@ -136,6 +146,13 @@ class Portfolio_Admin_ItemController extends Controller {
         );
     }
 
+    /**
+     * Display a form for editing a portfolio item based on the given $id
+     *
+     * Route: admin/portfolio/items/edit/:num
+     *
+     * @param int $id The id of the item to edit
+     */
     public static function edit($id)
     {
         if(!$item = Portfolio::item()->find($id))
@@ -271,6 +288,14 @@ class Portfolio_Admin_ItemController extends Controller {
         );
     }
 
+    /**
+     * Deletes an items photo based on the current item id and file id
+     *
+     * Route: admin/portfolio/items/edit/:num/delete-photo/:num
+     *
+     * @param int $itemId The item id the file is associated with
+     * @param int $fileId The id of the file to be deleted.
+     */
     public static function deletePhoto($itemId, $fileId)
     {
         if(Media::delete($fileId))
@@ -286,6 +311,13 @@ class Portfolio_Admin_ItemController extends Controller {
         Url::redirect('admin/portfolio/items/edit/' . $itemId);
     }
 
+    /**
+     * Deletes a portfolio item based on the given id. All item photos will also be deleted.
+     *
+     * Route: admin/portfolio/items/delete/:num
+     *
+     * @param int $id The id of the portfolio item to delete.
+     */
     public static function delete($id)
     {
         if($photos = Db::table('files_items')->where('item_id', '=', $id)->all())
